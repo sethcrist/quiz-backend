@@ -5,3 +5,6 @@
 - H2 database: For in-memory database setup during development 
 - PostgreSQL Driver: For robust database solution in production 
 - OpenAI: 
+
+## TODO
+- Disable H2 during deployment
