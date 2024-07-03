@@ -8,35 +8,62 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * Service class for managing quizzes.
+ * Provides operation to manage quiz data including retrieval, creation and deletion of quiz entities.
+ */
 @Service
-// annotation marks the class as a service component in springs component scanning
 public class QuizService {
     private final QuizRepository quizRepository;
-    // holds a reference to the repository responsible for database operation related to quizzes
 
+    /**
+     * Constructs a new quizService with the given quizrepository
+     *
+     * @param quizRepository the repository used for quiz data operations, automatically injected by spring
+     */
     @Autowired
     // annotation is used on the constructor to tell spring to automatically inject an instance of QuizRepository when creating an instance of QuizService
     public QuizService(QuizRepository quizRepository) {
         this.quizRepository = quizRepository;
     }
 
+    /**
+     * Retrieves all quizzes stored in the database
+     *
+     * @return a list of all quizzes, if none exist returns an empty list
+     */
     public List<Quiz> getAllQuizzes() {
         return quizRepository.findAll();
-        // method retrieves all quiz records from the database by calling 'findAll()' on the quizRepository
     }
 
+    /**
+     * retrieves a quiz by its ID.
+     *
+     * @param id the ID of the quiz to retrieve
+     * @return an Optional containing the quiz if found, or an empty Optional if not found
+     * Optional = container object that may or may not contain a non-null value
+     */
     public Quiz getQuizById(Long id) {
         return quizRepository.findById(id).orElse(null);
-        // retrieves a specific quiz by it ID, by calling findById(id) on the quizRepository, returns quiz if found or null if not
     }
 
+    /**
+     * Saves a quize to the database. Used for creating a new quiz or updating an existing quiz
+     *
+     * @param quiz to be saved
+     * @return the saved quiz with any modification
+     */
     public Quiz saveQuiz(Quiz quiz) {
         return quizRepository.save(quiz);
-        // method saves / updates the quiz to the database
     }
 
+    /**
+     * deletes a quiz from the database by its ID
+     *
+     * @param id the ID of the quiz to be deleted
+     */
     public void deleteQuiz(Long id) {
         quizRepository.deleteById(id);
-        // method deletes the quiz by id
     }
 }
